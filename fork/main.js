@@ -39,6 +39,24 @@ http
       const n = 42;
       const result = fibonacci(n);
       res.end(`fibonacci of ${n} is ${result}`);
+    } else if (req.url === "/simulate-async") {
+      console.log(
+        `[${new Date().toISOString()}] Simulating async tasks with promises...`
+      );
+
+      delay(3000)
+        .then((result) => {
+          console.log(result);
+          return delay(2000);
+        })
+        .then((result) => {
+          console.log(result);
+          return delay(1000);
+        })
+        .then((result) => {
+          console.log(`[${new Date().toISOString()}] ${result}`);
+          res.end("Async tasks completed");
+        });
     } else {
       res.end("Hello world!");
     }
@@ -46,3 +64,11 @@ http
   .listen(PORT, () => {
     console.log(`Server is running on port ${PORT}...`);
   });
+
+function delay(time) {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(`Waited for ${time}ms`);
+    }, time);
+  });
+}

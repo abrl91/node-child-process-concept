@@ -15,6 +15,12 @@ http.get("http://localhost:4200/fibonacci", (res) => {
   });
 });
 
+http.get("http://localhost:4200/simulate-async", (res) => {
+  res.on("data", (data) => {
+    console.log(`Simulate async response: ${data}`);
+  });
+});
+
 console.log(
   `[${new Date().toISOString()}] Making request to http://localhost:${PORT}${MATH_TASK_URL}`
 );
@@ -30,6 +36,12 @@ console.log(
 http.get(`http://localhost:${PORT}${ENGLISH_TASK_URL}`, (res) => {
   res.on("data", (data) => {
     console.log(`English task response: ${data}`);
+  });
+});
+
+http.get("http://localhost:4200/simulate-async", (res) => {
+  res.on("data", (data) => {
+    console.log(`Simulate async response: ${data}`);
   });
 });
 
